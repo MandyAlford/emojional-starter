@@ -2,6 +2,8 @@ var happyBtn= document.querySelector('.happy');
 var sillyBtn= document.querySelector('.silly');
 var cryingBtn= document.querySelector('.crying');
 var messageSlot= document.querySelector('.message');
+var lastBtnClicked
+var lastIndex
 
 var happyResponses= ['You go!', 'Your smile just cheered me up!', 'YAY!'];
 
@@ -16,15 +18,26 @@ cryingBtn.addEventListener('click', generateResponse);
 
 function generateResponse(event){
   if (event.target === happyBtn){
-    setMessageSlot(happyResponses);
+    lastBtnClicked = happyBtn;
+    setMessageSlot(happyResponses, event.target);
   } else if (event.target=== sillyBtn){
-    setMessageSlot(sillyResponses);
+    lastBtnClicked = sillyBtn;
+    setMessageSlot(sillyResponses, event.target);
   } else if (event.target=== cryingBtn){
-    setMessageSlot(cryingResponses);
+    lastBtnClicked = cryingBtn;
+    setMessageSlot(cryingResponses, event.target);
   }
 }
 
-function setMessageSlot(responses){
-  var index= Math.floor(Math.random() * responses.length);
+function setMessageSlot(responses, btnClicked){
+  var index = generateIndex(responses);
+  while (lastIndex===index && lastBtnClicked=== btnClicked){
+    index = generateIndex(responses);
+  }
+  lastIndex= index;
   messageSlot.innerText= responses[index];
+}
+
+function generateIndex(responses){
+  return Math.floor(Math.random() * responses.length);
 }
