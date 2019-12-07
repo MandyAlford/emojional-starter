@@ -7,24 +7,24 @@ var happyResponses= ['You go!', 'Your smile just cheered me up!', 'YAY!'];
 
 var sillyResponses= ['Interesting response', 'Sounds ... good?', 'Me too.'];
 
-var cryingResponses= ['Do you want to talk?', 'Keep your head up', 'We can cry together!', 'What can I do?']
+var cryingResponses= ['Do you want to talk?', 'Keep your head up', 'We can cry together!', 'What can I do?'];
 
 
-happyBtn.addEventListener('click', generateHappyResponse);
-sillyBtn.addEventListener('click', generateSillyResponse);
-cryingBtn.addEventListener('click', generateCryingResponse);
+happyBtn.addEventListener('click', generateResponse);
+sillyBtn.addEventListener('click', generateResponse);
+cryingBtn.addEventListener('click', generateResponse);
 
-function generateHappyResponse(event){
-  var index= Math.floor(Math.random() * happyResponses.length);
-    messageSlot.innerText= happyResponses[index];
+function generateResponse(event){
+  if (event.target === happyBtn){
+    setMessageSlot(happyResponses);
+  } else if (event.target=== sillyBtn){
+    setMessageSlot(sillyResponses);
+  } else if (event.target=== cryingBtn){
+    setMessageSlot(cryingResponses);
+  }
 }
 
-function generateSillyResponse(event){
-  var index= Math.floor(Math.random() * sillyResponses.length);
-    messageSlot.innerText= sillyResponses[index];
-}
-
-function generateCryingResponse(event){
-  var index= Math.floor(Math.random() * cryingResponses.length);
-    messageSlot.innerText= cryingResponses[index];
+function setMessageSlot(responses){
+  var index= Math.floor(Math.random() * responses.length);
+  messageSlot.innerText= responses[index];
 }
